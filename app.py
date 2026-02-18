@@ -11,7 +11,12 @@ import hashlib
 import json
 
 # Database setup
-SQLALCHEMY_DATABASE_URL = "sqlite:///./expenses.db"
+# Use /tmp for serverless environments (Vercel), otherwise use local file
+import os
+if os.path.exists("/tmp"):
+    SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/expenses.db"
+else:
+    SQLALCHEMY_DATABASE_URL = "sqlite:///./expenses.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
