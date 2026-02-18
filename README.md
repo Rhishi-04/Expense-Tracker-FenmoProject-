@@ -19,6 +19,50 @@ A full-stack expense tracking application built with **FastAPI** (backend) and *
 - **Database**: SQLite with SQLAlchemy ORM
 - **Deployment**: Vercel (Backend), Streamlit Cloud (Frontend)
 
+## Architecture
+
+```mermaid
+graph TB
+    subgraph "Frontend Layer"
+        A[Streamlit App<br/>Streamlit Cloud]
+    end
+    
+    subgraph "API Layer"
+        B[FastAPI Backend<br/>Vercel Serverless]
+    end
+    
+    subgraph "Data Layer"
+        C[(SQLite Database<br/>SQLAlchemy ORM)]
+    end
+    
+    A -->|HTTP REST API<br/>POST/GET /expenses| B
+    B -->|SQL Queries| C
+    B -->|JSON Response| A
+    
+    style A fill:#ff4b4b,stroke:#333,stroke-width:2px,color:#fff
+    style B fill:#009688,stroke:#333,stroke-width:2px,color:#fff
+    style C fill:#ff9800,stroke:#333,stroke-width:2px,color:#fff
+```
+
+### Component Overview
+
+**Frontend (Streamlit)**
+- User interface for expense management
+- Form validation and error handling
+- Real-time data visualization
+- Deployed on Streamlit Cloud
+
+**Backend (FastAPI)**
+- RESTful API endpoints
+- Request validation and idempotency
+- Business logic and data processing
+- Deployed on Vercel serverless functions
+
+**Database (SQLite)**
+- Persistent storage for expenses
+- ACID-compliant transactions
+- Managed via SQLAlchemy ORM
+
 ## Prerequisites
 
 - Python 3.8+
