@@ -14,7 +14,6 @@ except:
 # Page config
 st.set_page_config(
     page_title="Expense Tracker",
-    page_icon="💰",
     layout="wide"
 )
 
@@ -66,12 +65,12 @@ def add_expense(expense_data):
         return False, None, f"Error adding expense: {str(e)}"
 
 # Main app
-st.title("💰 Expense Tracker")
+st.title("Expense Tracker")
 st.markdown("Record and review your personal expenses")
 
 # Form to add new expense
 with st.form("add_expense_form", clear_on_submit=True):
-    st.subheader("➕ Add New Expense")
+    st.subheader("Add New Expense")
     
     col1, col2 = st.columns(2)
     
@@ -118,11 +117,11 @@ with st.form("add_expense_form", clear_on_submit=True):
             
             # Validation
             if amount <= 0:
-                st.error("❌ Amount must be greater than 0")
+                st.error("Amount must be greater than 0")
             elif not category or not category.strip():
-                st.error("❌ Category is required")
+                st.error("Category is required")
             elif not expense_date:
-                st.error("❌ Date is required")
+                st.error("Date is required")
             else:
                 # Show loading state
                 with st.spinner("Adding expense..."):
@@ -136,16 +135,16 @@ with st.form("add_expense_form", clear_on_submit=True):
                     success, result, error = add_expense(expense_data)
                     
                     if success:
-                        st.success("✅ Expense added successfully!")
+                        st.success("Expense added successfully!")
                         # Small delay to show success message
                         time.sleep(0.5)
                         st.rerun()
                     else:
-                        st.error(f"❌ Failed to add expense: {error}")
+                        st.error(f"Failed to add expense: {error}")
 
 # Filters and controls
 st.markdown("---")
-st.subheader("📋 Expense List")
+st.subheader("Expense List")
 
 col1, col2, col3 = st.columns([2, 2, 1])
 
@@ -172,7 +171,7 @@ with col2:
 
 with col3:
     # Refresh button
-    if st.button("🔄 Refresh", use_container_width=True):
+    if st.button("Refresh", use_container_width=True):
         st.rerun()
 
 # Fetch expenses with filters
@@ -183,8 +182,8 @@ expenses, fetch_error = fetch_expenses(
 
 # Display expenses
 if fetch_error:
-    st.error(f"⚠️ {fetch_error}")
-    st.info("💡 Make sure the backend API is running on http://localhost:8000")
+    st.error(f"{fetch_error}")
+    st.info("Make sure the backend API is running on http://localhost:8000")
 
 if expenses:
     # Convert to DataFrame for easier manipulation
@@ -228,12 +227,12 @@ if expenses:
         st.info("No expenses match the current filters.")
 else:
     if not fetch_error:
-        st.info("📝 No expenses yet. Add your first expense using the form above!")
+        st.info("No expenses yet. Add your first expense using the form above!")
 
 # Summary view (Nice to have)
 if expenses and len(expenses) > 0:
     st.markdown("---")
-    st.subheader("📊 Summary by Category")
+    st.subheader("Summary by Category")
     
     df_summary = pd.DataFrame(expenses)
     df_summary['amount'] = df_summary['amount'].apply(lambda x: Decimal(str(x)))
