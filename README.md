@@ -153,6 +153,28 @@ The backend is deployed on Vercel and automatically deploys on push to `main` br
 - **Location**: `/tmp/expenses.db` (serverless) or `./expenses.db` (local)
 - **Note**: Data is ephemeral on Vercel serverless functions
 
+## Production-Quality Features
+
+This project emphasizes production-like quality while maintaining a small feature set:
+
+### Reliability & Correctness
+- **Idempotent API**: Request hashing prevents duplicate expenses from network retries or page refreshes
+- **Money Precision**: Uses Python `Decimal` and SQL `Numeric(10,2)` instead of float for accurate financial calculations
+- **Input Validation**: Prevents negative amounts, validates required fields, and provides clear error messages
+- **Database Error Handling**: Graceful handling of database initialization and connection issues
+
+### Real-World Conditions
+- **Timeout Handling**: Explicit timeouts (5s GET, 10s POST) prevent hanging requests
+- **Connection Error Handling**: Handles network failures, timeouts, and API unavailability gracefully
+- **Multiple Click Protection**: Rate limiting prevents accidental duplicate submissions
+- **Loading States**: Visual feedback during API requests for better user experience
+
+### Code Quality
+- **Clean Architecture**: Separation of concerns between frontend, backend, and data layers
+- **Error Messages**: User-friendly error messages guide users when issues occur
+- **Health Check Endpoint**: `/health` endpoint for monitoring and deployment verification
+- **API Documentation**: Auto-generated OpenAPI/Swagger documentation at `/docs`
+
 ## Design Decisions
 
 - **Decimal for Money**: Uses Python `Decimal` and SQL `Numeric(10,2)` for precise financial calculations
