@@ -205,7 +205,7 @@ GET /expenses?category=Food&sort=date_desc
    - Go to Settings → Secrets
    - Add:
      ```toml
-     API_URL = "https://your-fastapi-url.vercel.app"
+     API_URL = "https://expense-tracker-api-lemon-nu.vercel.app"
      ```
 5. Deploy!
 
@@ -230,11 +230,9 @@ Fenmo_Project/
 ├── streamlit_app.py      # Streamlit frontend application
 ├── requirements.txt       # Python dependencies
 ├── README.md             # Project documentation
-├── QUICKSTART.md         # Quick start guide
 ├── vercel.json           # Vercel deployment config
 ├── .gitignore            # Git ignore file
-├── run.sh                # Startup script (Mac/Linux)
-├── run.bat               # Startup script (Windows)
+├── LICENSE               # MIT License
 └── expenses.db           # SQLite database (created automatically)
 ```
 
