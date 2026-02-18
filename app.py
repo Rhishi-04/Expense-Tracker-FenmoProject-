@@ -13,11 +13,19 @@ import json
 # Database setup
 # Use /tmp for serverless environments (Vercel), otherwise use local file
 import os
-if os.path.exists("/tmp"):
-    SQLALCHEMY_DATABASE_URL = "sqlite:////tmp/expenses.db"
-else:
-    SQLALCHEMY_DATABASE_URL = "sqlite:///./expenses.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+try:
+    # Try /tmp first (for serverless like Vercel)
+    if os.path.exists("/tmp"):
+        db_path = "/tmp/expenses.db"
+    else:
+        db_path = "./expenses.db"
+    SQLALCHEMY_DATABASE_URL = f"sqlite:///{db_path}"
+    engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+except Exception:
+    # Fallback to in-memory database if file system access fails
+    SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
+    engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
@@ -34,8 +42,12 @@ class Expense(Base):
     # For idempotency: store hash of request to detect duplicates
     request_hash = Column(String, unique=True, index=True)
 
-# Create tables
-Base.metadata.create_all(bind=engine)
+# Create tables (with error handling)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    # Log error but continue (tables might already exist)
+    print(f"Database initialization note: {e}")
 
 # Pydantic models
 class ExpenseCreate(BaseModel):
