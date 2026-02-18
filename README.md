@@ -1,30 +1,30 @@
-# 💰 Expense Tracker
+# Expense Tracker
 
 A full-stack expense tracking application built with **FastAPI** (backend) and **Streamlit** (frontend). Record and review personal expenses with filtering, sorting, and category-based analytics.
 
-## 🎯 Features
+## Features
 
-- ✅ Create expense entries (amount, category, description, date)
-- ✅ View and filter expenses by category
-- ✅ Sort expenses by date (newest first)
-- ✅ Calculate total expenses for filtered results
-- ✅ Category-wise expense summary with visualizations
-- ✅ Idempotent API (handles duplicate requests gracefully)
-- ✅ Input validation and error handling
+- Create expense entries (amount, category, description, date)
+- View and filter expenses by category
+- Sort expenses by date (newest first)
+- Calculate total expenses for filtered results
+- Category-wise expense summary with visualizations
+- Idempotent API (handles duplicate requests gracefully)
+- Input validation and error handling
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend**: FastAPI (Python)
 - **Frontend**: Streamlit (Python)
 - **Database**: SQLite with SQLAlchemy ORM
 - **Deployment**: Vercel (Backend), Streamlit Cloud (Frontend)
 
-## 📋 Prerequisites
+## Prerequisites
 
 - Python 3.8+
 - pip
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Local Development
 
@@ -54,7 +54,7 @@ A full-stack expense tracking application built with **FastAPI** (backend) and *
    - Backend API: http://localhost:8000
    - API Docs: http://localhost:8000/docs
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### POST /expenses
 Create a new expense entry.
@@ -84,7 +84,7 @@ GET /expenses?sort=date_desc
 GET /expenses?category=Food&sort=date_desc
 ```
 
-## 🌐 Deployment
+## Deployment
 
 ### Backend (Vercel)
 
@@ -103,20 +103,20 @@ The backend is deployed on Vercel and automatically deploys on push to `main` br
    ```
 5. Deploy
 
-## 🗄️ Database
+## Database
 
 - **Type**: SQLite
 - **Location**: `/tmp/expenses.db` (serverless) or `./expenses.db` (local)
 - **Note**: Data is ephemeral on Vercel serverless functions
 
-## 🎨 Design Decisions
+## Design Decisions
 
 - **Decimal for Money**: Uses Python `Decimal` and SQL `Numeric(10,2)` for precise financial calculations
 - **Idempotency**: Request hashing prevents duplicate expenses from retries
 - **Error Handling**: Comprehensive error handling for network failures and edge cases
 - **SQLite**: Chosen for simplicity and zero configuration
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── app.py                 # FastAPI backend
@@ -126,16 +126,16 @@ The backend is deployed on Vercel and automatically deploys on push to `main` br
 └── README.md             # Documentation
 ```
 
-## 🔗 Links
+## Links
 
 - **GitHub Repository**: https://github.com/Rhishi-04/Expense-Tracker-FenmoProject-
 - **Backend API**: https://expense-tracker-api-lemon-nu.vercel.app
 - **API Documentation**: https://expense-tracker-api-lemon-nu.vercel.app/docs
 
-## 📝 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-Built with ❤️ using FastAPI and Streamlit
+Built with FastAPI and Streamlit
